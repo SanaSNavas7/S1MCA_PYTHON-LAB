@@ -1,44 +1,35 @@
-class Bank:
-	def __init__(self,accno,name,typ,balance):
-		self.accno=accno
-		self.name=name
-		self.typ=typ
-		self.balance=balance
-		
-	def deposit(dep):
-		amnt = int(input("Enter the amount to deposit : "))
-		new_bal = dep.balance+amnt
-		print("Your current status is ")
-		print(dep.accno)
-		print(dep.name)
-		print(dep.typ)
-		print("New balance is : " , new_bal)
-		
-	def withdraw(wtd):
-		amnt = int(input("Enter the amount to withdraw : "))
-		new_bal = wtd.balance-amnt
-		print("Your current status is ")
-		print(wtd.accno)
-		print(wtd.name)
-		print(wtd.typ)
-		print("New balance is : " , new_bal)
-		
-		
-accno = int(input("Enter the account number : "))
-name = input("Enter the name : ")
-typ = input("What is your account type? (Savings/Current) : ")
-balance = int(input("Enter your current account balance : "))
-print("What you need to perform?")
-print("Enter 1 TO DEPOSIT")
-print("Enter 2 to WITHDRAW")
-choice = int(input())
-acc = Bank(accno,name,typ,balance)
-if choice == 1:
-	acc.deposit()
-elif choice == 2:
-	acc.withdraw()
-else:
-	print("Invalid entry")
+class Account:
+	def __init__(self, acc_no, name, ac_type, bal):
+		self.acc_no = acc_no
+		self.name = name
+		self.ac_type = ac_type
+		self.bal = bal
 
 	
-	
+	def deposit(self, amount):
+		self.bal += amount
+		print(f"Deposited Rs.{amount} successfully!")
+		
+	def withdraw(self, amount):
+		if amount > self.bal:
+			print("Insufficient balance!")
+			return		
+		self.bal -= amount
+		print(f"Withdrawed Rs.{amount} successfully!")
+
+	def display(self):
+		print(f"Name:\t\t{self.name}\nAccount No:\t{self.acc_no}\nAccount Type:\t{self.ac_type}\nBalance:\t{self.bal}")
+
+account_no = int(input("Enter the account no: "))
+name = input("Enter the name: ")
+account_type = input("Enter the account type: ")
+
+member = Account(account_no, name, account_type, 0)
+
+while True:
+	member.display()
+	transaction = int(input("Enter 1 to deposit, 2 to withdraw: "))
+	if transaction == 1:
+		member.deposit(int(input("Enter the amount to deposit: ")))
+	elif transaction == 2:
+		member.withdraw(int(input("Enter the amount to withdraw: ")))
